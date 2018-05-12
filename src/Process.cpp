@@ -20,7 +20,8 @@ Process Process::startSsLocal(Proxy const &proxy,string const &localPort,string 
 			       "-m",proxy.method.c_str(),
 			       "-k",proxy.password.c_str(),
 			       "-l",localPort.c_str(),
-			       "-b",localAddress.c_str());
+				   "-b",localAddress.c_str() ,
+				   nullptr);
 		} else {
 			execlp("ss-local","ss-local",
 				   "-s",proxy.address.c_str(),
@@ -30,7 +31,8 @@ Process Process::startSsLocal(Proxy const &proxy,string const &localPort,string 
 			       "-l",localPort.c_str(),
 			       "-b",localAddress.c_str(),
 			       "--plugin","obfs-local",
-			       "--plugin-opts",proxy.plugin_option.c_str());
+				   "--plugin-opts",proxy.plugin_option.c_str() ,
+				   nullptr);
 		}
 		exit(-1);
 	} else {
