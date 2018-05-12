@@ -13,6 +13,8 @@ static void parse_print_format(char *arg,list<int> &out) {
 			out.push_back(Options::NAME);
 		else if ( strcmp(p,"HOST") == 0 )
 			out.push_back(Options::HOST);
+		else if ( strcmp(p,"ADDRESS") == 0 )
+			out.push_back(Options::ADDRESS);
 		else if ( strcmp(p,"PORT") == 0 )
 			out.push_back(Options::PORT);
 		else if ( strcmp(p,"METHOD") == 0 )

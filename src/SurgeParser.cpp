@@ -42,6 +42,7 @@ void SurgeParser::parse(const string &input, list<ProxyPtr> &output,string const
 				proxy->group         = group;
 				proxy->name          = trim(result[1]);
 				proxy->host          = trim(result[2]);
+				proxy->address       = DnsLookup::lookup(proxy->host);
 				proxy->port          = trim(result[3]);
 				proxy->method        = trim(result[4]);
 				proxy->password      = trim(result[5]);
@@ -55,6 +56,7 @@ void SurgeParser::parse(const string &input, list<ProxyPtr> &output,string const
 				proxy->group         = group;
 				proxy->name          = trim(result[1]);
 				proxy->host          = trim(result[2]);
+				proxy->address       = DnsLookup::lookup(proxy->host);
 				proxy->port          = trim(result[3]);
 				proxy->method        = trim(result[4]);
 				proxy->password      = trim(result[5]);

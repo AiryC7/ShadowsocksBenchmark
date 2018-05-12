@@ -7,6 +7,7 @@
 
 #include "Exception.h"
 #include "Proxy.h"
+#include "DnsLookup.h"
 
 using std::regex;
 using std::list;

@@ -11,6 +11,7 @@ public:
 	string group;
 	string name;
 	string host;
+	string address;
 	string port;
 	string method;
 	string password;

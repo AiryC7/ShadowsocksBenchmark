@@ -21,11 +21,12 @@ public:
 		GROUP    = 0,
 		NAME     = 1,
 		HOST     = 2,
-		PORT     = 3,
-		METHOD   = 4,
-		PASSWORD = 5,
-		OBFSOPTS = 6,
-		DELAY    = 7
+		ADDRESS  = 3,
+		PORT     = 4,
+		METHOD   = 5,
+		PASSWORD = 6,
+		OBFSOPTS = 7,
+		DELAY    = 8
 	};
 
 public:

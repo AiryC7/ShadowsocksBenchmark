@@ -5,7 +5,7 @@ static wostream &operator<<(wostream &stream,string const &str) {
 	return stream << conv.from_bytes(str);
 }
 
-static std::function<void (Benchmark::BenchmarkResult &r,wostream &stream)> print[8] = {
+static std::function<void (Benchmark::BenchmarkResult &r,wostream &stream)> print[9] = {
 //print[0]
 	[](Benchmark::BenchmarkResult &r,wostream &stream)->void{
 		stream << std::setiosflags(std::ios::left) << std::setw(12) << r.proxy->group << " ";
@@ -19,6 +19,11 @@ static std::function<void (Benchmark::BenchmarkResult &r,wostream &stream)> prin
 //print[2]
 	[](Benchmark::BenchmarkResult &r,wostream &stream)->void{
 		stream << std::setiosflags(std::ios::left) << std::setw(12) << r.proxy->host << " ";
+	},
+
+	//print[2]
+	[](Benchmark::BenchmarkResult &r,wostream &stream)->void{
+		stream << std::setiosflags(std::ios::left) << std::setw(16) << r.proxy->host << " ";
 	},
 
 //print[3]

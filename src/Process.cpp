@@ -1,8 +1,6 @@
 #include "Process.h"
 
 Process Process::startSsLocal(Proxy const &proxy,string const &localPort,string const &localAddress) {
-	string serverAddress = DnsLookup::lookup(proxy.host);
-
 	if ( proxy.type != Proxy::PROXY_SHADOWSOCKS && proxy.type != Proxy::PROXY_SHADOWSOCKS_SIMPLE_OBFS )
 		throw Exception("Invalid proxy type");
 
@@ -17,7 +15,7 @@ Process Process::startSsLocal(Proxy const &proxy,string const &localPort,string 
 
 		if ( proxy.type == Proxy::PROXY_SHADOWSOCKS ) {
 			execlp("ss-local","ss-local",
-			       "-s",serverAddress.c_str(),
+				   "-s",proxy.address.c_str(),
 			       "-p",proxy.port.c_str(),
 			       "-m",proxy.method.c_str(),
 			       "-k",proxy.password.c_str(),
@@ -25,7 +23,7 @@ Process Process::startSsLocal(Proxy const &proxy,string const &localPort,string 
 			       "-b",localAddress.c_str());
 		} else {
 			execlp("ss-local","ss-local",
-			       "-s",serverAddress.c_str(),
+				   "-s",proxy.address.c_str(),
 			       "-p",proxy.port.c_str(),
 			       "-m",proxy.method.c_str(),
 			       "-k",proxy.password.c_str(),
