@@ -23,11 +23,13 @@ public:
 	class BenchmarkResult;
 
 public:
-	static void benchmark(list<ProxyPtr> &input,list<BenchmarkResult> &output,int threads = 8);
+	static void benchmark(list<ProxyPtr> &input,list<BenchmarkResult> &output,int threads = 12 ,int pingCount = 12);
 };
 
 class Benchmark::BenchmarkResult {
 public:
 	ProxyPtr proxy;
 	int      delay;
+	int      count;
+	int      lost;
 };

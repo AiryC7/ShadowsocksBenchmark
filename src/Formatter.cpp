@@ -1,7 +1,7 @@
 #include "Formatter.h"
 
 
-static std::function<void (Benchmark::BenchmarkResult &r,ostream &stream)> print[9] = {
+static std::function<void (Benchmark::BenchmarkResult &r,ostream &stream)> print[] = {
 //print[0]
 	[](Benchmark::BenchmarkResult &r,ostream &stream)->void{
 		stream << std::setiosflags(std::ios::left) << std::setw(12) << r.proxy->group << " ";
@@ -45,14 +45,17 @@ static std::function<void (Benchmark::BenchmarkResult &r,ostream &stream)> print
 //print[7]
 	[](Benchmark::BenchmarkResult &r,ostream &stream)->void{
 		stream << std::setiosflags(std::ios::left) << std::setw(8) << (r.delay > 0 ? std::to_string(r.delay) + "ms" : "timeout") << " ";
+	},
+//print[8]
+	[](Benchmark::BenchmarkResult &r,ostream &stream)->void{
+		stream << std::setiosflags(std::ios::left) << std::setw(5) << std::to_string(r.lost) + "/" + std::to_string(r.count) << " ";
 	}
 };
 
 void Formatter::format(list<Benchmark::BenchmarkResult> &data, list<int> &format, std::ostream &stream) {
 	for ( Benchmark::BenchmarkResult &r : data ) {
-		for ( int f : format ) {
+		for ( int f : format ) 
 			print[f](r,stream);
-		}
 		stream << std::endl;
 	}
 }

@@ -26,12 +26,13 @@ public:
 		METHOD   = 5,
 		PASSWORD = 6,
 		OBFSOPTS = 7,
-		DELAY    = 8
+		DELAY    = 8,
+		LOST     = 9
 	};
 
 public:
 	list<SurgeUrl> surgeUrls;
-	list<int>      printFormat = {DELAY,GROUP,NAME};
+	list<int>      printFormat = {DELAY,LOST,GROUP,NAME};
 	int threads                = 8;
 
 public:

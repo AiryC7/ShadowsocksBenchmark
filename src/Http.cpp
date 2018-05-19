@@ -59,7 +59,10 @@ int64_t Http::ping(const string &url,int timeout,const string &proxy,const strin
 
 	curl_easy_cleanup(curl);
 
-	return result == CURLE_OK ? delay : -1;
+	if ( result == CURLE_OK )
+		return delay;
+	else 
+		throw Exception("Timeout");
 }
 
 Http::CurlGlobalHandle::CurlGlobalHandle(void) noexcept {

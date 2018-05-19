@@ -1,6 +1,6 @@
 #include "Benchmark.h"
 
-void Benchmark::benchmark(list<ProxyPtr> &input,list<BenchmarkResult> &output,int threads) {
+void Benchmark::benchmark(list<ProxyPtr> &input,list<BenchmarkResult> &output,int threads,int pingCount) {
 	std::atomic_int port(BENCHMARK_PORT_BEGIN);
 	std::mutex mutex;
 
@@ -8,15 +8,22 @@ void Benchmark::benchmark(list<ProxyPtr> &input,list<BenchmarkResult> &output,in
 		int currentPort = port++;
 		Process process = Process::startSsLocal(*p,std::to_string(currentPort));
 		BenchmarkResult result;
+		int delayTotal = 0;
 
 		result.proxy = p;
+		result.count = pingCount;
+		result.lost = 0;
 		process.sleep(1000);
 
-		try {
-			result.delay = Http::ping(BENCHMARK_URL,BENCHMARK_TIMEOUT,std::string("socks5h://127.0.0.1:") + std::to_string(currentPort), BENCHMARK_DNS);
-		} catch (Exception &e) {
-			result.delay = -1;
+		for ( int i = 0 ; i < pingCount ; i++ ) {
+			try {
+				delayTotal += Http::ping(BENCHMARK_URL,BENCHMARK_TIMEOUT,std::string("socks5h://127.0.0.1:") + std::to_string(currentPort), BENCHMARK_DNS);
+			} catch (Exception &e) {
+				result.lost += 1;
+			}
 		}
+		
+		result.delay = delayTotal == 0 ? -1 : delayTotal / ( pingCount - result.lost );
 
 		process.kill();
 		process.waitFor();

@@ -25,6 +25,8 @@ static void parse_print_format(char *arg,list<int> &out) {
 			out.push_back(Options::OBFSOPTS);
 		else if ( strcmp(p,"DELAY") == 0 )
 			out.push_back(Options::DELAY);
+		else if ( strcmp(p,"LOST") == 0 )
+			out.push_back(Options::LOST);
 		else throw Exception(string("Unsupported print format ") + p);
 	} while (( p = strtok(nullptr,",")) != nullptr );
 }
@@ -77,7 +79,7 @@ void Options::printHelp(ostream &stream) {
 	stream << "Usage: ss_bm [-t <count>] [-p <ITEM1,ITEM2...>] <Group#SurgeURL>..." << std::endl;
 	stream << "A tool to benchmark shadowsocks hosts. Download hosts list from Surge configure url." << std::endl << std::endl;
 	stream << "Options:" << std::endl;
-	stream << "    " << "-p" << "  " << "Output list. [GROUP,NAME,HOST,PORT,PASSWORD,METHOD,OBFSOPTS,DELAY]" << std::endl;
+	stream << "    " << "-p" << "  " << "Output list. [GROUP,NAME,HOST,PORT,PASSWORD,METHOD,OBFSOPTS,DELAY,LOST]" << std::endl;
 	stream << "    " << "-t" << "  " << "Test threads." << std::endl << std::endl;
 	stream << "Example:" << std::endl;
 	stream << "    " << "ss_bm \"Self#https://my.cloud.org/fskwidnjfjsownbrhculame?is_ss=1\"" << std::endl;
